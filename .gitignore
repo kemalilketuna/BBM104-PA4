@@ -25,3 +25,4 @@ replay_pid*
 
 *.zip
 output.txt
+./src/

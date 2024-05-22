@@ -1,13 +1,30 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * The MapAnalyzer class provides static methods to analyze maps of roads,
+ * including reading and printing roads, determining the fastest route,
+ * and finding routes in a barely connected graph.
+ */
 public class MapAnalyzer {
+    
+    /**
+     * Prints the list of Road objects to the console.
+     *
+     * @param roads a list of Road objects to be printed
+     */
     private static void printRoads(List<Road> roads) {
         for (Road road : roads) {
             System.out.println(road);
         }
     }
 
+    /**
+     * Reads the first line of the input file to get the start and end points for analysis.
+     *
+     * @param inputFileName the name of the input file
+     * @return an array containing the start and end points
+     */
     private static String[] getStartEndPoints(String inputFileName) {
         try {
             Scanner sc = new Scanner(new File(inputFileName));
@@ -20,6 +37,12 @@ public class MapAnalyzer {
         return null;
     }
 
+    /**
+     * Reads the road data from the input file and returns a list of Road objects.
+     *
+     * @param inputFileName the name of the input file
+     * @return a list of Road objects read from the file
+     */
     private static List<Road> readRoads(String inputFileName) {
         List<Road> roads = new ArrayList<Road>();
         try {
@@ -41,6 +64,14 @@ public class MapAnalyzer {
         return roads;
     }
 
+    /**
+     * Conducts a comprehensive analysis of the roads, including finding the fastest route,
+     * the barely connected graph routes, and comparing material usage ratios.
+     *
+     * @param roads a list of Road objects representing the network of roads
+     * @param startPoint the starting point for the route analysis
+     * @param endPoint the ending point for the route analysis
+     */
     private static void makeAnalyze(List<Road> roads, String startPoint, String endPoint) {
         int totalLength = RoadAnalyzer.getLength(roads);
 
@@ -66,6 +97,11 @@ public class MapAnalyzer {
         System.out.print("Ratio of Fastest Route Between Barely Connected and Original Map: " + String.format("%.2f", fastestRouteRatio));
     }
 
+    /**
+     * The main method to run the map analysis. It reads input from a specified file and writes output to another file.
+     *
+     * @param args the command line arguments, where args[0] is the input file name and args[1] is the output file name
+     */
     public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println("Usage: java MapAnalyzer <input file> <output file>");
