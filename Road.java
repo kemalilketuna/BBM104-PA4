@@ -2,7 +2,7 @@
  * Represents a Road connecting two endpoints with a specified length and ID.
  * This class provides methods to retrieve the road's attributes and 
  * to compare Road objects based on their length and ID.
- * The toString method allows for an optional reversed print format.
+ * The toString method allows for an optional reversed print format for endpoints.
  * Implements {@code Comparable<Road>} to allow for natural ordering.
  * 
  * @see java.lang.Comparable
@@ -79,6 +79,7 @@ public class Road implements Comparable<Road>{
     /**
      * Returns a string representation of the road.
      * The format can be reversed based on the reversePrint flag.
+     * When reversePrint is true, the first and second endpoints are swapped.
      *
      * @return a string representing the road
      */

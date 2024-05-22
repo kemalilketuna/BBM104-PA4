@@ -26,3 +26,5 @@ replay_pid*
 *.zip
 output.txt
 /src/*
+
+.DS_Store

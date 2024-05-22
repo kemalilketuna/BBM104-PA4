@@ -75,21 +75,26 @@ public class MapAnalyzer {
     private static void makeAnalyze(List<Road> roads, String startPoint, String endPoint) {
         int totalLength = RoadAnalyzer.getLength(roads);
 
-        List<Road> fastestRoute = RoadAnalyzer.getFastestRoute(roads, startPoint, endPoint);
+        // Find the fastest route between the start and end points
+        List<Road> fastestRoute = RoadAnalyzer.getFastestRoute(roads, startPoint, endPoint); 
         int fastestRouteLength = RoadAnalyzer.getLength(fastestRoute);
         System.out.println("Fastest Route from " + startPoint + " to " + endPoint + " (" + fastestRouteLength + " KM):");
         printRoads(fastestRoute);
 
-        List<Road> barelyConnectedGraphRoutes = RoadAnalyzer.getBarelyConnectedGraphRoutes(roads);
+        // Find the barely connected graph routes (similar to a minimum spanning tree)
+        List<Road> barelyConnectedGraphRoutes = RoadAnalyzer.getBarelyConnectedGraphRoutes(roads); 
         int barelyConnectedGraphLength = RoadAnalyzer.getLength(barelyConnectedGraphRoutes);
         System.out.println("Roads of Barely Connected Map is:");
         printRoads(barelyConnectedGraphRoutes);
 
+        // Find the fastest route on the barely connected graph
         List<Road> fastestRouteBarelyConnected = RoadAnalyzer.getFastestRoute(barelyConnectedGraphRoutes, startPoint, endPoint);
         int fastestRouteBarelyConnectedLength = RoadAnalyzer.getLength(fastestRouteBarelyConnected);
         System.out.println("Fastest Route from " + startPoint + " to " + endPoint + " on Barely Connected Map (" + fastestRouteBarelyConnectedLength + " KM):");
         printRoads(fastestRouteBarelyConnected);
 
+        // Compare material usage ratios between the original and barely connected maps,
+        // and the fastest route lengths between the original and barely connected maps
         System.out.println("Analysis:");
         double metarialUsageRatio = (double) barelyConnectedGraphLength / totalLength;
         System.out.println("Ratio of Construction Material Usage Between Barely Connected and Original Map: " + String.format("%.2f", metarialUsageRatio));
@@ -108,16 +113,16 @@ public class MapAnalyzer {
             return;
         }
         try{
-            System.setOut(new PrintStream(new FileOutputStream(args[1])));
+            System.setOut(new PrintStream(new FileOutputStream(args[1]))); // Redirect console output to a file with args[1]
         }catch(Exception e){
             System.out.println(e);
         }
 
-        String[] startEndPoints = getStartEndPoints(args[0]);
+        String[] startEndPoints = getStartEndPoints(args[0]); // Read the start and end points from the input file
         String startPoint = startEndPoints[0];
         String endPoint = startEndPoints[1];
-        List<Road> roads = readRoads(args[0]);
-        makeAnalyze(roads, startPoint, endPoint);
+        List<Road> roads = readRoads(args[0]); // Read the road data from the input file
+        makeAnalyze(roads, startPoint, endPoint); // Analyze the roads
         
         System.out.close();
     }
