@@ -1,6 +1,19 @@
 import java.util.*;
 
+/**
+ * RoadAnalyzer provides static methods to analyze roads and routes.
+ * It includes methods for calculating the total length of a route,
+ * finding the fastest route between two endpoints, and finding
+ * the barely connected graph routes (similar to a minimum spanning tree).
+ */
 public class RoadAnalyzer {
+    
+    /**
+    * Computes the total length of all roads in the provided route.
+    *
+    * @param route a list of Road objects representing the route
+    * @return the total length of the route
+    */
     public static int getLength(List<Road> route) {
         int totalLength = 0;
         for (Road road : route) {
@@ -9,6 +22,15 @@ public class RoadAnalyzer {
         return totalLength;
     }
 
+    /**
+     * Finds the fastest route (shortest path) between the given start and end points
+     * using Dijkstra's algorithm.
+     *
+     * @param roads a list of Road objects representing the roads in the network
+     * @param startPoint the starting point of the route
+     * @param endPoint the ending point of the route
+     * @return a list of Road objects representing the fastest route, or null if no route exists
+     */
     public static List<Road> getFastestRoute(List<Road> roads, String startPoint, String endPoint) {
         HashMap<String, HashMap<String, Road>> graph = new HashMap<String, HashMap<String, Road>>();
         for (Road road : roads) {
@@ -61,6 +83,14 @@ public class RoadAnalyzer {
         return route;
     }
 
+    /**
+     * Finds the root of the given node in the disjoint-set (union-find) structure.
+     * This is used in Kruskal's algorithm to find the root of a node.
+     *
+     * @param parents a map of node to its parent in the disjoint-set structure
+     * @param node the node whose root is to be found
+     * @return the root of the node
+     */
     private static String findRoot(HashMap<String, String> parents, String node) {
         while (!parents.get(node).equals(node)) {
             parents.put(node, parents.get(parents.get(node)));
@@ -69,6 +99,13 @@ public class RoadAnalyzer {
         return node;
     }
 
+    /**
+     * Finds the minimum edge set that keeps the graph connected using Kruskal's algorithm.
+     * This is useful for finding the "barely connected" routes in the graph or minimum spanning tree.
+     *
+     * @param roads a list of Road objects representing the full set of roads in the graph
+     * @return a list of Road objects representing the minimum spanning tree
+     */
     public static List<Road> getBarelyConnectedGraphRoutes(List<Road> roads){
         List<Road> barelyConnectedGraphRoutes = new ArrayList<Road>();
         Collections.sort(roads);
